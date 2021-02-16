@@ -1884,7 +1884,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "teacher-hotline"
+name = "teachhelp"
 version = "0.1.0"
 dependencies = [
  "actix",
