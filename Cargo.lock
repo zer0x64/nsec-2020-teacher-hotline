@@ -1496,28 +1496,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "pychat"
-version = "0.1.0"
-dependencies = [
- "actix",
- "actix-files",
- "actix-rt",
- "actix-session",
- "actix-web",
- "actix-web-actors",
- "flexi_logger",
- "hex-literal",
- "json",
- "log",
- "rand",
- "reqwest",
- "serde",
- "sha2",
- "structopt",
- "uuid",
-]
-
-[[package]]
 name = "quick-error"
 version = "1.2.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1903,6 +1881,28 @@ dependencies = [
  "quote",
  "syn",
  "unicode-xid",
+]
+
+[[package]]
+name = "teacher-hotline"
+version = "0.1.0"
+dependencies = [
+ "actix",
+ "actix-files",
+ "actix-rt",
+ "actix-session",
+ "actix-web",
+ "actix-web-actors",
+ "flexi_logger",
+ "hex-literal",
+ "json",
+ "log",
+ "rand",
+ "reqwest",
+ "serde",
+ "sha2",
+ "structopt",
+ "uuid",
 ]
 
 [[package]]

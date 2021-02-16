@@ -10,7 +10,7 @@ const argv = yargs
   .option("address", {
     description: 'Address of the chat server',
     alias: 'a',
-    default: "127.0.0.1:8081",
+    default: "127.0.0.1:8080",
   })
   .option("interval", {
     description: "Time, in milliseconds, before a new teacher is spawned.",

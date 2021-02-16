@@ -26,12 +26,11 @@ struct Credentials {
 #[derive(StructOpt, Debug)]
 #[structopt(name = "pychat")]
 struct Opt {
-    /// Decides which address to bind to
-    #[structopt(short, long)]
-    production: bool,
+    #[structopt(short, long, default_value = "127.0.0.1:8080")]
+    address: String,
 
-    //#[structopt(short, long)]
-    //clientserver: String,
+    #[structopt(short, long, default_value = "5")]
+    max_users: usize,
 }
 
 async fn index() -> impl Responder {
@@ -130,13 +129,8 @@ async fn main() -> std::io::Result<()> {
         .unwrap();
 
     let opt = Opt::from_args();
-    let addr = if opt.production {
-        "[::]:80"
-    } else {
-        "127.0.0.1:8081"
-    };
 
-    let server = PairingServer::new().start();
+    let server = PairingServer::new(opt.max_users).start();
     let mut session_key = [0u8; 32];
     rand::thread_rng().fill(&mut session_key);
 
@@ -160,7 +154,7 @@ async fn main() -> std::io::Result<()> {
                 actix_files::Files::new("client", "client_build").disable_content_disposition(),
             )
     })
-    .bind(addr)?
+    .bind(opt.address)?
     .run()
     .await
 }

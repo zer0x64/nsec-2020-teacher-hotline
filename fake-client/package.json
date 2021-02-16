@@ -4,17 +4,12 @@
   "description": "",
   "main": "client.js",
   "dependencies": {
-    "async-mutex": "^0.3.0",
-    "express": "^4.17.1",
-    "ip6addr": "^0.2.3",
     "puppeteer": "^2.1.1",
-    "queue": "^6.0.1",
     "yargs": "^15.3.1"
   },
   "devDependencies": {},
   "scripts": {
-    "start": "node client.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node client.js"
   },
   "author": "",
   "license": "ISC"

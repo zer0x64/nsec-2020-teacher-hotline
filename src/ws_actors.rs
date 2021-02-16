@@ -12,7 +12,7 @@ const HEARTBEAT_INTERVAL: Duration = Duration::from_secs(5);
 /// How long before lack of client response causes a timeout
 const CLIENT_TIMEOUT: Duration = Duration::from_secs(20);
 
-const MAX_USERS: usize = 20;
+const MAX_USERS_DEFAULT: usize = 5;
 
 #[derive(Clone, Copy, Debug)]
 pub enum UserType {
@@ -55,6 +55,7 @@ struct Disconnect {
 pub struct PairingServer {
     teachers: VecDeque<Addr<ChatWs>>,
     students: VecDeque<Addr<ChatWs>>,
+    max_users: usize,
 }
 
 impl Default for PairingServer {
@@ -62,15 +63,17 @@ impl Default for PairingServer {
         PairingServer {
             teachers: VecDeque::new(),
             students: VecDeque::new(),
+            max_users: MAX_USERS_DEFAULT,
         }
     }
 }
 
 impl PairingServer {
-    pub fn new() -> Self {
+    pub fn new(max_users: usize) -> Self {
         PairingServer {
             teachers: VecDeque::new(),
             students: VecDeque::new(),
+            max_users,
         }
     }
 }
@@ -85,7 +88,7 @@ impl Handler<Register> for PairingServer {
     fn handle(&mut self, msg: Register, _: &mut Context<Self>) -> Self::Result {
         match msg.user_type {
             UserType::Teacher => {
-                if self.teachers.len() >= MAX_USERS {
+                if self.teachers.len() >= self.max_users {
                     msg.address.do_send(Full {});
                     return Box::new(async { Ok(()) }.into_actor(self));
                 } else {
@@ -93,7 +96,7 @@ impl Handler<Register> for PairingServer {
                 }
             }
             UserType::Student => {
-                if self.students.len() >= MAX_USERS {
+                if self.students.len() >= self.max_users {
                     msg.address.do_send(Full {});
                     return Box::new(async { Ok(()) }.into_actor(self));
                 } else {
