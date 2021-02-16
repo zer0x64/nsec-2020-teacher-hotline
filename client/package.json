@@ -20,7 +20,7 @@
     "react-chat-widget": "^2.1.5",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1",
-    "rustpython_wasm": "file:rustpython2",
+    "rustpython_wasm": "file:rustpython",
     "typescript": "^3.7.5"
   },
   "scripts": {

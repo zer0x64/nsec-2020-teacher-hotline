@@ -30,8 +30,8 @@ struct Opt {
     #[structopt(short, long)]
     production: bool,
 
-    #[structopt(short, long)]
-    clientserver: String,
+    //#[structopt(short, long)]
+    //clientserver: String,
 }
 
 async fn index() -> impl Responder {
@@ -136,7 +136,7 @@ async fn main() -> std::io::Result<()> {
         "127.0.0.1:8081"
     };
 
-    let server = PairingServer::new(&opt.clientserver).start();
+    let server = PairingServer::new().start();
     let mut session_key = [0u8; 32];
     rand::thread_rng().fill(&mut session_key);
 

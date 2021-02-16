@@ -12,7 +12,7 @@ const HEARTBEAT_INTERVAL: Duration = Duration::from_secs(5);
 /// How long before lack of client response causes a timeout
 const CLIENT_TIMEOUT: Duration = Duration::from_secs(20);
 
-const MAX_USERS: usize = 5;
+const MAX_USERS: usize = 20;
 
 #[derive(Clone, Copy, Debug)]
 pub enum UserType {
@@ -53,7 +53,6 @@ struct Disconnect {
 
 #[derive(Debug)]
 pub struct PairingServer {
-    client_server: String,
     teachers: VecDeque<Addr<ChatWs>>,
     students: VecDeque<Addr<ChatWs>>,
 }
@@ -61,7 +60,6 @@ pub struct PairingServer {
 impl Default for PairingServer {
     fn default() -> Self {
         PairingServer {
-            client_server: "http://127.0.0.1:9999/".to_string(),
             teachers: VecDeque::new(),
             students: VecDeque::new(),
         }
@@ -69,9 +67,8 @@ impl Default for PairingServer {
 }
 
 impl PairingServer {
-    pub fn new(client_server: &str) -> Self {
+    pub fn new() -> Self {
         PairingServer {
-            client_server: client_server.to_string(),
             teachers: VecDeque::new(),
             students: VecDeque::new(),
         }
@@ -108,23 +105,7 @@ impl Handler<Register> for PairingServer {
         info!("Teachers: {:?}", self.teachers);
         info!("Students: {:?}", self.students);
 
-        if self.teachers.len() <= 0 && self.students.len() > 0 {
-            // Poke fake client if there is a student waiting
-            let client_server = std::pin::Pin::new(self.client_server.to_string());
-            return Box::new(
-                async move {
-                    let client_server = std::pin::Pin::<std::string::String>::into_inner(client_server);
-                    match reqwest::get(&client_server).await {
-                        Ok(_) => Ok(()),
-                        Err(e) => {
-                            error!("Connection to fake client failed: {}", e);
-                            Ok(())
-                        }
-                    }
-                }
-                .into_actor(self),
-            );
-        } else if self.teachers.len() > 0 && self.students.len() > 0 {
+        if self.teachers.len() > 0 && self.students.len() > 0 {
             // Pair
             match (self.students.pop_front(), self.teachers.pop_front()) {
                 (Some(student), Some(teacher)) => {

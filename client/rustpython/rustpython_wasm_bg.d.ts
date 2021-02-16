@@ -1,0 +1,32 @@
+/* tslint:disable */
+/* eslint-disable */
+export const memory: WebAssembly.Memory;
+export function vmstore_init(a: number, b: number, c: number): number;
+export function vmstore_get(a: number, b: number): number;
+export function vmstore_destroy(a: number, b: number): void;
+export function vmstore_ids(a: number): void;
+export function __wbg_virtualmachine_free(a: number): void;
+export function virtualmachine_valid(a: number): number;
+export function virtualmachine_assert_valid(a: number): void;
+export function virtualmachine_destroy(a: number): void;
+export function virtualmachine_addToScope(a: number, b: number, c: number, d: number): void;
+export function virtualmachine_setStdout(a: number, b: number): void;
+export function virtualmachine_injectModule(a: number, b: number, c: number, d: number): void;
+export function virtualmachine_exec(a: number, b: number, c: number, d: number, e: number): number;
+export function virtualmachine_eval(a: number, b: number, c: number, d: number, e: number): number;
+export function virtualmachine_execSingle(a: number, b: number, c: number, d: number, e: number): number;
+export function __wbg_vmstore_free(a: number): void;
+export function setup_console_error(): void;
+export function pyEval(a: number, b: number, c: number): number;
+export function pyExec(a: number, b: number, c: number): void;
+export function pyExecSingle(a: number, b: number, c: number): number;
+export function __wbindgen_malloc(a: number): number;
+export function __wbindgen_realloc(a: number, b: number, c: number): number;
+export const __wbindgen_export_2: WebAssembly.Table;
+export function _dyn_core__ops__function__FnMut__A__B___Output___R_as_wasm_bindgen__closure__WasmClosure___describe__invoke__h8dfed3256f06e8c0(a: number, b: number, c: number, d: number): number;
+export function _dyn_core__ops__function__FnMut__A____Output___R_as_wasm_bindgen__closure__WasmClosure___describe__invoke__h4432adc2b6117ca3(a: number, b: number, c: number): void;
+export function _dyn_core__ops__function__Fn__A____Output___R_as_wasm_bindgen__closure__WasmClosure___describe__invoke__he002566595622b45(a: number, b: number, c: number): void;
+export function __wbindgen_free(a: number, b: number): void;
+export function __wbindgen_exn_store(a: number): void;
+export function wasm_bindgen__convert__closures__invoke2_mut__h002822fcca821332(a: number, b: number, c: number, d: number): void;
+export function __wbindgen_start(): void;
